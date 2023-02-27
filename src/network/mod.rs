@@ -10,7 +10,7 @@ mod io;
 /// The implemntation of [`NodeLike::id`] needs to provide a unique identifier per node.
 pub trait NodeLike: Ord {
     fn id(&self) -> usize;
-    fn activation(&self) -> fn(f64) -> f64;
+    fn activation(&self) -> fn(f32) -> f32;
 }
 
 /// Declares a structure to have [`EdgeLike`] properties.
@@ -19,7 +19,7 @@ pub trait NodeLike: Ord {
 pub trait EdgeLike {
     fn start(&self) -> usize;
     fn end(&self) -> usize;
-    fn weight(&self) -> f64;
+    fn weight(&self) -> f32;
 }
 
 /// Declares a structure to have network-like properties.
@@ -91,11 +91,11 @@ pub mod net {
     #[derive(Debug)]
     pub struct Node {
         id: usize,
-        activation: fn(f64) -> f64,
+        activation: fn(f32) -> f32,
     }
 
     impl Node {
-        pub fn new(id: usize, activation: fn(f64) -> f64) -> Self {
+        pub fn new(id: usize, activation: fn(f32) -> f32) -> Self {
             Self { id, activation }
         }
     }
@@ -104,7 +104,7 @@ pub mod net {
         fn id(&self) -> usize {
             self.id
         }
-        fn activation(&self) -> fn(f64) -> f64 {
+        fn activation(&self) -> fn(f32) -> f32 {
             self.activation
         }
     }
@@ -133,11 +133,11 @@ pub mod net {
     pub struct Edge {
         start: usize,
         end: usize,
-        weight: f64,
+        weight: f32,
     }
 
     impl Edge {
-        pub fn new(start: usize, end: usize, weight: f64) -> Self {
+        pub fn new(start: usize, end: usize, weight: f32) -> Self {
             Self { start, end, weight }
         }
     }
@@ -149,7 +149,7 @@ pub mod net {
         fn end(&self) -> usize {
             self.end
         }
-        fn weight(&self) -> f64 {
+        fn weight(&self) -> f32 {
             self.weight
         }
     }
@@ -320,19 +320,19 @@ pub mod net {
     }
 
     pub mod activations {
-        pub const LINEAR: fn(f64) -> f64 = |val| val;
-        // pub const SIGMOID: fn(f64) -> f64 = |val| 1.0 / (1.0 + (-1.0 * val).exp());
-        pub const SIGMOID: fn(f64) -> f64 = |val| 1.0 / (1.0 + (-4.9 * val).exp());
-        pub const TANH: fn(f64) -> f64 = |val| 2.0 * SIGMOID(2.0 * val) - 1.0;
+        pub const LINEAR: fn(f32) -> f32 = |val| val;
+        // pub const SIGMOID: fn(f32) -> f32 = |val| 1.0 / (1.0 + (-1.0 * val).exp());
+        pub const SIGMOID: fn(f32) -> f32 = |val| 1.0 / (1.0 + (-4.9 * val).exp());
+        pub const TANH: fn(f32) -> f32 = |val| 2.0 * SIGMOID(2.0 * val) - 1.0;
         // a = 1, b = 0, c = 1
-        pub const GAUSSIAN: fn(f64) -> f64 = |val| (val * val / -2.0).exp();
-        // pub const STEP: fn(f64) -> f64 = |val| if val > 0.0 { 1.0 } else { 0.0 };
-        // pub const SINE: fn(f64) -> f64 = |val| (val * std::f64::consts::PI).sin();
-        // pub const COSINE: fn(f64) -> f64 = |val| (val * std::f64::consts::PI).cos();
-        pub const INVERSE: fn(f64) -> f64 = |val| -val;
-        // pub const ABSOLUTE: fn(f64) -> f64 = |val| val.abs();
-        pub const RELU: fn(f64) -> f64 = |val| 0f64.max(val);
-        pub const SQUARED: fn(f64) -> f64 = |val| val * val;
+        pub const GAUSSIAN: fn(f32) -> f32 = |val| (val * val / -2.0).exp();
+        // pub const STEP: fn(f32) -> f32 = |val| if val > 0.0 { 1.0 } else { 0.0 };
+        // pub const SINE: fn(f32) -> f32 = |val| (val * std::f32::consts::PI).sin();
+        // pub const COSINE: fn(f32) -> f32 = |val| (val * std::f32::consts::PI).cos();
+        pub const INVERSE: fn(f32) -> f32 = |val| -val;
+        // pub const ABSOLUTE: fn(f32) -> f32 = |val| val.abs();
+        pub const RELU: fn(f32) -> f32 = |val| 0f32.max(val);
+        pub const SQUARED: fn(f32) -> f32 = |val| val * val;
     }
 
     #[macro_export]

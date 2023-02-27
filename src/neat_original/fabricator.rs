@@ -17,8 +17,8 @@ where
     fn fabricate(net: &impl crate::network::Recurrent<N, E>) -> Result<Self::Output, &'static str> {
         let mut nodes: Vec<DependentNode> = Vec::new();
 
-        let node_input_sum: Vec<f64> = vec![0.0; net.nodes().len()];
-        let node_active_output: Vec<[f64; 2]> = vec![[0.0; 2]; net.nodes().len()];
+        let node_input_sum: Vec<f32> = vec![0.0; net.nodes().len()];
+        let node_active_output: Vec<[f32; 2]> = vec![[0.0; 2]; net.nodes().len()];
 
         let mut id_gen = 0_usize..;
         let mut id_map: HashMap<usize, usize> = HashMap::new();

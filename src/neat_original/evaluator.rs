@@ -4,8 +4,8 @@ use crate::network::{NetworkIO, StatefulEvaluator};
 
 #[derive(Debug)]
 pub struct DependentNode {
-    pub activation_function: fn(f64) -> f64,
-    pub inputs: Vec<(usize, f64, bool)>,
+    pub activation_function: fn(f32) -> f32,
+    pub inputs: Vec<(usize, f32, bool)>,
     pub is_active: bool,
 }
 
@@ -14,9 +14,9 @@ pub struct NeatOriginalEvaluator {
     pub input_ids: Vec<usize>,
     pub output_ids: Vec<usize>,
     pub nodes: Vec<DependentNode>,
-    pub node_input_sum: Vec<f64>,
+    pub node_input_sum: Vec<f32>,
     // [0] is current output, [1] it output before that
-    pub node_active_output: Vec<[f64; 2]>,
+    pub node_active_output: Vec<[f32; 2]>,
 }
 
 impl NeatOriginalEvaluator {

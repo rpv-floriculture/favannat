@@ -5,7 +5,7 @@ use crate::network::{Evaluator, NetworkIO};
 
 #[derive(Debug)]
 pub struct SparseMatrixFeedforwardEvaluator {
-    pub stages: Vec<CscMatrix<f64>>,
+    pub stages: Vec<CscMatrix<f32>>,
     pub transformations: Vec<crate::Transformations>,
 }
 
@@ -13,7 +13,7 @@ impl Evaluator for SparseMatrixFeedforwardEvaluator {
     fn evaluate<T: NetworkIO>(&self, state: T) -> T {
         let state = NetworkIO::input(state);
         let mut len = 0;
-        let mut state: CscMatrix<f64> = (&state).into();
+        let mut state: CscMatrix<f32> = (&state).into();
         // performs evaluation by sequentially matrix multiplying and transforming the state with every stage
         for (stage_matrix, transformations) in self.stages.iter().zip(&self.transformations) {
             len = transformations.len();

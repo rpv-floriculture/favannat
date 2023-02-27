@@ -7,7 +7,7 @@ use crate::{
 
 #[derive(Debug)]
 pub struct SparseMatrixRecurrentEvaluator {
-    pub internal: DMatrix<f64>,
+    pub internal: DMatrix<f32>,
     pub evaluator: SparseMatrixFeedforwardEvaluator,
     pub outputs: usize,
 }

@@ -6,8 +6,8 @@ pub struct SparseMatrixFeedforwardFabricator;
 
 impl SparseMatrixFeedforwardFabricator {
     fn get_sparse(
-        (col_inds, row_inds, data): (Vec<usize>, Vec<usize>, Vec<f64>),
-    ) -> CscMatrix<f64> {
+        (col_inds, row_inds, data): (Vec<usize>, Vec<usize>, Vec<f32>),
+    ) -> CscMatrix<f32> {
         let colums = col_inds.iter().max().unwrap() + 1;
         let rows = row_inds.iter().max().unwrap() + 1;
 
@@ -45,7 +45,7 @@ where
         // println!("initial dependency_graph {:#?}", dependency_graph);
 
         // contains list of matrices (stages) that form the computable net
-        let mut compute_stages: Vec<(Vec<usize>, Vec<usize>, Vec<f64>)> = Vec::new();
+        let mut compute_stages: Vec<(Vec<usize>, Vec<usize>, Vec<f32>)> = Vec::new();
         // contains activation functions corresponding to each stage
         let mut stage_transformations: Vec<crate::Transformations> = Vec::new();
         // set available nodes a.k.a net input

@@ -5,7 +5,7 @@ use std::collections::HashMap;
 pub struct MatrixFeedforwardFabricator;
 
 impl MatrixFeedforwardFabricator {
-    fn get_matrix(dynamic_matrix: Vec<Vec<f64>>) -> DMatrix<f64> {
+    fn get_matrix(dynamic_matrix: Vec<Vec<f32>>) -> DMatrix<f32> {
         let columns = dynamic_matrix
             .into_iter()
             .map(DVector::from_vec)
@@ -74,7 +74,7 @@ where
                 // marker if all dependencies are available
                 let mut computable = true;
                 // eventual compute vector
-                let mut compute_or_carry = vec![f64::NAN; available_nodes.len()];
+                let mut compute_or_carry = vec![f32::NAN; available_nodes.len()];
                 // check every dependency
                 for &dependency in dependencies {
                     let mut found = false;

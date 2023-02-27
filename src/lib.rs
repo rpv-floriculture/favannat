@@ -11,5 +11,5 @@ pub mod neat_original;
 pub mod network;
 pub mod sparse_matrix;
 
-type Matrix = Vec<Vec<f64>>;
-type Transformations = Vec<fn(f64) -> f64>;
+type Matrix = Vec<Vec<f32>>;
+type Transformations = Vec<fn(f32) -> f32>;

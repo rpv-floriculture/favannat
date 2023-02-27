@@ -4,7 +4,7 @@ use crate::network::{Evaluator, NetworkIO};
 
 #[derive(Debug)]
 pub struct MatrixFeedforwardEvaluator {
-    pub stages: Vec<DMatrix<f64>>,
+    pub stages: Vec<DMatrix<f32>>,
     pub transformations: Vec<crate::Transformations>,
 }
 
